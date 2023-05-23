@@ -42,7 +42,7 @@ const NewtodoList = () => {
         } else {
             const updatedData = [...data, newData];
             setData(updatedData);
-            setNewData({ id: "", title: "" });
+            setNewData({ id: "" , title: "" });
         }
     };
     // delete data from localStorage ....
