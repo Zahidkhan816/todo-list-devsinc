@@ -71,6 +71,8 @@ const NewtodoList = () => {
         setEditItemId(null);
         setIsModalOpen(false);
     };
+
+    // mark as completed or uncompleted
     const toggleCompletion = (id) => {
         const updatedData = data.map(item => {
             if (item.id === id) {
