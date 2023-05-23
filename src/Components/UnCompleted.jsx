@@ -27,10 +27,10 @@ const UnCompleted = () => {
                     </thead>
                     <tbody>
                     {
-                            Data.filter((item) => item.completed == false).map(items=> {
+                            Data.filter((item) => item.completed == false).map((items,index) => {
                                 return (
-                                        <tr key={items.id}>
-                                            <td> {items.id}</td>
+                                        <tr key={index}>
+                                            <td>{index+1}</td>
                                             <td>{items.title}</td>
                                             <td className={items.completed === false ? 'text-danger  font-weight-bold' : ' font-weight-bold text-success'}>{items.Completed ? "" : " UnCompleted"}</td>
                                         </tr>

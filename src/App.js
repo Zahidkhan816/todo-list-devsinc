@@ -1,7 +1,6 @@
 import './App.css';
 import Navbar from './Components/Navbar';
 import NewtodoList from './Components/NewtodoList';
-import TodoList from './Components/TodoList';
 import { Routes, Route } from "react-router-dom";
 import Completed from './Components/Completed';
 import UnCompleted from './Components/UnCompleted';

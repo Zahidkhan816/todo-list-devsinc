@@ -27,10 +27,10 @@ const Completed = () => {
                     </thead>
                     <tbody>
                         {
-                            Data.filter((item) => item.completed == true).map(items=> {
+                            Data.filter((item) => item.completed == true).map((items , index)=> {
                                 return (
-                                        <tr key={items.id}>
-                                            <td> {items.id}</td>
+                                        <tr key={index}>
+                                            <td> {index+1}</td>
                                             <td>{items.title}</td>
                                             <td className={items.completed === true ? 'text-success  font-weight-bold' : 'text-danger'}>{items.Completed ? "" : "Completed"}</td>
                                         </tr>

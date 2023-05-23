@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react';
 import Completed from './Completed';
 
 const NewtodoList = () => {
+    // main state
     const [data, setData] = useState([]);
     const [newData, setNewData] = useState({
         id: "",
         title: "",
-        completed:false
+        completed: false
     });
     useEffect(() => {
         getLocalStorage();
     }, []);
 
+    // get data from localStorage with if else states ....
     const getLocalStorage = () => {
         const localData = localStorage.getItem('List');
         const parsedLocalData = JSON.parse(localData);
@@ -28,11 +30,12 @@ const NewtodoList = () => {
                 });
         }
     };
-
+    // set data in localStorage where our  main state will be update...
     useEffect(() => {
         localStorage.setItem('List', JSON.stringify(data));
     }, [data]);
 
+    // adding data...
     const addData = () => {
         if (newData.title === "") {
             alert("some fields are empty");
@@ -42,7 +45,7 @@ const NewtodoList = () => {
             setNewData({ id: "", title: "" });
         }
     };
-
+    // delete data from localStorage ....
     const deleteItem = (id) => {
         const updatedItems = data.filter(item => item.id !== id);
         setData(updatedItems);
@@ -60,7 +63,7 @@ const NewtodoList = () => {
         setNewData({ title: "" })
         const updatedData = data.map(item => {
             if (item.id === editItemId) {
-                return {...item, title:  newData.title   };
+                return { ...item, title: newData.title };
             }
             return item;
         });
@@ -68,15 +71,23 @@ const NewtodoList = () => {
         setEditItemId(null);
         setIsModalOpen(false);
     };
-
+    const toggleCompletion = (id) => {
+        const updatedData = data.map(item => {
+            if (item.id === id) {
+                return { ...item, completed: !item.completed };
+            }
+            return item;
+        });
+        setData(updatedData);
+    };
     return (
         <>
             <div className="form-container">
                 <div className="row">
-                    <div className="col-lg-12" style={{textAlign:"center"}}>
+                    <div className="col-lg-12" style={{ textAlign: "center" }}>
                         <input
                             type="text"
-                            value={  isModalOpen === false ?newData.title:""}
+                            value={isModalOpen === false ? newData.title : ""}
                             placeholder='Enter Your Task'
                             onChange={(e) => setNewData({ ...newData, id: Number(data.length + 2), title: e.target.value })}
                         />
@@ -85,13 +96,13 @@ const NewtodoList = () => {
                 </div>
                 <br />
                 {
-                       isModalOpen === false &&
-                <div className="row" style={{textAlign:"center"}}>
-                    <div className="col-lg-12">
-                        <button className='btn' onClick={addData}>Submit</button>
+                    isModalOpen === false &&
+                    <div className="row" style={{ textAlign: "center" }}>
+                        <div className="col-lg-12">
+                            <button className='btn' onClick={addData}>Submit</button>
+                        </div>
                     </div>
-                </div>
-}
+                }
             </div>
             <div>
                 <div style={{ textAlign: "center" }}>
@@ -119,8 +130,8 @@ const NewtodoList = () => {
                                 ) : (
                                     item.title
                                 )}</td>
-                                <td className={item.completed==true ? 'text-success font-weight-bold' : 'text-danger font-weight-bold'}>
-                                    {item.completed==true ? "Completed" : "Non Completed"}
+                                <td className={item.completed == true ? 'text-success font-weight-bold' : 'text-danger font-weight-bold'}>
+                                    {item.completed == true ? "Completed" : "Non Completed"}
                                 </td>
                                 <td>
                                     {item.id === editItemId ? (
@@ -129,10 +140,13 @@ const NewtodoList = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <button onClick={() => openEditModal(item.id)}>Edit Item</button>
-                                            <button onClick={() => deleteItem(item.id)}>Delete Item</button>
+                                            <button className='editbtn' onClick={() => openEditModal(item.id)}><i className="fas fa-edit text-success"></i></button>
+                                            <button className='deletebtn' onClick={() => deleteItem(item.id)}><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
                                         </>
                                     )}
+                                    <button onClick={() => toggleCompletion(item.id)}>
+                                        {item.completed ? "Mark Uncompleted" : "Mark Completed"}
+                                    </button>
                                 </td>
                             </tr>
                         ))}

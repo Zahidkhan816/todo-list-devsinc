@@ -1,4 +1,3 @@
-/* NewtodoList.css */
 
 /* Form container styles */
 .form-container {
@@ -27,6 +26,19 @@
   cursor: pointer;
 }
 
+/* btns css */
+.editbtn{
+  color: #4CAF50;
+  background: none;
+  border: none;
+  font-size: larger;
+}
+.deletebtn{
+  color: #c50606;
+  background: none;
+  border: none;
+  font-size: larger;
+}
 /* Todo list styles */
 table {
   width: 100%;
